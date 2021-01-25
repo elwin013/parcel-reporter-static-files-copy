@@ -1,0 +1,20 @@
+{
+  "name": "custom-static-folder",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "parcel build src/index.html",
+    "serve": "parcel src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/config-default": "^2.0.0-beta.1",
+    "parcel": "^2.0.0-beta.1",
+    "parcel-reporter-static-files-copy": "file:../../"
+  },
+  "staticFiles": {
+    "staticPath": "customStatic"
+  }
+}
