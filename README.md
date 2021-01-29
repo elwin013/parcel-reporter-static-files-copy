@@ -25,7 +25,7 @@ npm install -D parcel-reporter-static-files-copy
   "reporters":  ["...", "parcel-reporter-static-files-copy"]
 }
 ```
-4. Run build - and that's all!
+4. Run build - and that's all! Files from `static` directory will end up in `dist`!
 
 ## Customization
 
@@ -39,6 +39,17 @@ Beyond the default settings, you can:
 	...
   "staticFiles": {
     "staticPath": "customStatic"
+  }
+```
+
+2. Destination of static files
+
+```json
+// package.json
+  {
+	...
+  "staticFiles": {
+    "distPath": "customDist"
   }
 ```
 

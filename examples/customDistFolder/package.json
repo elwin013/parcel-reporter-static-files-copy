@@ -1,0 +1,20 @@
+{
+  "name": "custom-dist-folder",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "parcel build src/index.html --dist-dir dist1",
+    "serve": "parcel src/index.html --dist-dir dist1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@parcel/config-default": "^2.0.0-beta.1",
+    "parcel": "^2.0.0-beta.1",
+    "parcel-reporter-static-files-copy": "file:../../"
+  },
+  "staticFiles": {
+    "distPath": "dist1"
+  }
+}

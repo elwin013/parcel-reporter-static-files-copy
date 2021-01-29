@@ -17,10 +17,10 @@ const staticCopyPlugin = new Reporter({
                 getSettings(options.projectRoot)
             );
 
-            let distDir = options.distDir || 'dist';
+            let distPath = config.distPath || options.projectRoot + '/dist';
             copyDir(
                 options.projectRoot + '/' + config.staticPath,
-                options.projectRoot + '/' + distDir
+                distPath
             );
         }
     },
