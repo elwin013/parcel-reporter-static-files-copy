@@ -8,7 +8,6 @@ const PACKAGE_JSON_SECTION = "staticFiles";
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
-      console.log(options.distDir);
       let config = Object.assign({}, getSettings(options.projectRoot));
 
       let distPath = options.distDir || config.distDir || path.join(options.projectRoot, "dist");
