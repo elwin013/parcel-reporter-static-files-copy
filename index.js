@@ -8,9 +8,15 @@ const PACKAGE_JSON_SECTION = "staticFiles";
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
+      console.log(options.distDir);
       let config = Object.assign({}, getSettings(options.projectRoot));
 
-      let distPath = config.distPath || path.join(options.projectRoot, "dist");
+      let distPath = options.distDir || config.distDir || path.join(options.projectRoot, "dist");
+
+      if (config.staticOutPath) {
+        distPath = path.join(distPath, config.staticOutPath); 
+      }
+
       let staticPath =
         config.staticPath || path.join(options.projectRoot, "static");
 

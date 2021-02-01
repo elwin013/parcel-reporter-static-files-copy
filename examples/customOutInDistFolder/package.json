@@ -1,10 +1,10 @@
 {
-  "name": "custom-dist-folder",
+  "name": "custom-out-in-dist-folder",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "parcel build src/index.html --dist-dir dist1",
-    "serve": "parcel src/index.html --dist-dir dist1",
+    "build": "parcel build src/index.html",
+    "serve": "parcel src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +15,6 @@
     "parcel-reporter-static-files-copy": "file:../../"
   },
   "staticFiles": {
-    "distPath": "static"
+    "staticOutPath": "vendor"
   }
 }

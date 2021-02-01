@@ -44,12 +44,29 @@ Beyond the default settings, you can:
 
 2. Destination of static files
 
+Destination of static files can be set in plugin configuration. It will be
+overriden while using `--dist-dir` Parcel option (works with Parcel `2.0.0-beta.1`).
+
 ```json
 // package.json
   {
 	...
   "staticFiles": {
     "distPath": "customDist"
+  }
+```
+
+3. Specify directory to copy static files into
+
+If files from `staticPath` needs to get copied into a subdirectory inside the dist dir - 
+`staticOutPath` can be used:
+
+```json
+// package.json
+  {
+	...
+  "staticFiles": {
+    "staticOutPath": "vendor"
   }
 ```
 
