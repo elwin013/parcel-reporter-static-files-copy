@@ -77,14 +77,17 @@ If you have different destination directories specified for each build target, y
 Note that this ignores the `--dist-dir` configured on each build invocation.
 
 ```json
-	...
-	"staticFiles": {
+// package.json
+ {
+   ...
+   "staticFiles": {
 	   "buildModeOutPath" : {
-	       "development" : "target/dev",
-	       "production" : "target/dist"
+	     "development" : "target/dev",
+	     "production" : "target/dist"
 	   }
    }
    ...
+ }
 ```
 
 ### Additional examples
