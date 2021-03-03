@@ -16,7 +16,7 @@ npm install -D parcel-reporter-static-files-copy
 
 ## Usage
 
-1. Create `static` directory in you project root.
+1. Create `static` directory in your project root.
 2. Fill it with your static files
 3. Add plugin to `.parcelrc`:
 ```
@@ -70,10 +70,27 @@ If files from `staticPath` needs to get copied into a subdirectory inside the di
   }
 ```
 
-### Additional example
+4. Specify buildTarget specific directories as copy targets.
+
+If you have different destination directories specified for each build target, you can set these using the following configuration pattern. 
+
+Note that this ignores the `--dist-dir` configured on each build invocation.
+
+```json
+	...
+	"staticFiles": {
+	   "buildModeOutPath" : {
+	       "development" : "target/dev",
+	       "production" : "target/dist"
+	   }
+   }
+   ...
+```
+
+### Additional examples
 
 Check [examples](https://github.com/elwin013/parcel-reporter-static-files-copy/tree/master/examples) directory for 
-additional example. 
+additional examples. 
 
 ## Flaws and problems
 
@@ -87,7 +104,12 @@ changes!
 
 ## Thanks and acknowledgement
 
-Special thanks to [@gmougeolle](https://github.com/gmougeolle/).
+Special thanks to,
+
+- [@gmougeolle](https://github.com/gmougeolle/)
+
+- Bhagya Silva - [@bhagyas](https://github.com/bhagyas/)
+
 
 ## License
 
