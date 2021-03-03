@@ -10,7 +10,7 @@ const staticCopyPlugin = new Reporter({
     if (event.type === "buildSuccess") {
       let config = Object.assign({}, getSettings(options.projectRoot));
 
-      let distPath = options.distDir || config.distDir || path.join(options.projectRoot, config.buildModeOutPath[options.mode]) || path.join(options.projectRoot, "dist");
+      let distPath = options.distDir || config.distDir || config.buildModeOutPath ? (path.join(options.projectRoot, config.buildModeOutPath[options.mode])) : false || path.join(options.projectRoot, "dist");
 
       if (config.staticOutPath) {
         distPath = path.join(distPath, config.staticOutPath); 
