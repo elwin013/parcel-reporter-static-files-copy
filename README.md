@@ -52,7 +52,7 @@ overriden while using `--dist-dir` Parcel option (works with Parcel `2.0.0-beta.
   {
 	...
   "staticFiles": {
-    "distPath": "customDist"
+    "distDir": "customDist"
   }
 ```
 
