@@ -10,19 +10,28 @@ const staticCopyPlugin = new Reporter({
     if (event.type === "buildSuccess") {
       let config = Object.assign({}, getSettings(options.projectRoot));
 
-      let distPath =
-        options.distDir ||
-        config.distDir ||
-        path.join(options.projectRoot, "dist");
+      // Get all dist dir from targets, we'll copy static files into them
+      let targets = Array.from(
+        new Set(
+          event.bundleGraph
+            .getBundles()
+            .filter((b) => b.target && b.target.distDir)
+            .map((b) => b.target.distDir)
+        )
+      );
+
+      let distPaths = config.distDir ? [config.distDir] : targets;
 
       if (config.staticOutPath) {
-        distPath = path.join(distPath, config.staticOutPath);
+        distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
       }
 
       let staticPath =
         config.staticPath || path.join(options.projectRoot, "static");
 
-      copyDir(staticPath, distPath);
+      for (let distPath of distPaths) {
+        copyDir(staticPath, distPath);
+      }
     }
   },
 });

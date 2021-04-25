@@ -1,8 +1,7 @@
 # parcel-reporter-static-files-copy
 
-ParcelJS v2 plugin to copy static files from some directory to output dir. There is no watcher - 
+ParcelJS v2 plugin to copy static files from some directory to output dir. There is no watcher -
 files are copied on build finish.
-
 
 ## Install
 
@@ -19,12 +18,14 @@ npm install -D parcel-reporter-static-files-copy
 1. Create `static` directory in your project root.
 2. Fill it with your static files
 3. Add plugin to `.parcelrc`:
+
 ```
 {
   "extends": ["@parcel/config-default"],
   "reporters":  ["...", "parcel-reporter-static-files-copy"]
 }
 ```
+
 4. Run build - and that's all! Files from `static` directory will end up in `dist`!
 
 ## Customization
@@ -42,23 +43,9 @@ Beyond the default settings, you can:
   }
 ```
 
-2. Destination of static files
+2. Specify directory to copy static files into
 
-Destination of static files can be set in plugin configuration. It will be
-overriden while using `--dist-dir` Parcel option (works with Parcel `2.0.0-beta.1`).
-
-```json
-// package.json
-  {
-	...
-  "staticFiles": {
-    "distDir": "customDist"
-  }
-```
-
-3. Specify directory to copy static files into
-
-If files from `staticPath` needs to get copied into a subdirectory inside the dist dir - 
+If files from `staticPath` needs to get copied into a subdirectory inside the dist dir -
 `staticOutPath` can be used:
 
 ```json
@@ -70,19 +57,33 @@ If files from `staticPath` needs to get copied into a subdirectory inside the di
   }
 ```
 
+3. Destination of static files
+
+Destination of static files can be set in plugin configuration. It will override
+`--dist-dir` parameter.
+
+```json
+// package.json
+  {
+	...
+  "staticFiles": {
+    "distDir": "customDist"
+  }
+```
+
 ### Additional example
 
-Check [examples](https://github.com/elwin013/parcel-reporter-static-files-copy/tree/master/examples) directory for 
-additional examples. 
+Check [examples](https://github.com/elwin013/parcel-reporter-static-files-copy/tree/master/examples) directory for
+additional examples.
 
 ## Flaws and problems
 
-At this moment this plugin copies all static files from some static dir to output (dist) directory. There is no 
+At this moment this plugin copies all static files from some static dir to output (dist) directory. There is no
 watcher on static files - only trigger is finishing build (no matter if normal build or serving).
 
 ## Contribute
 
-You're interested in contributing? Awesome! Fork, make change, commit and create pull request. I'll do my best to merge 
+You're interested in contributing? Awesome! Fork, make change, commit and create pull request. I'll do my best to merge
 changes!
 
 ## Thanks and acknowledgement
