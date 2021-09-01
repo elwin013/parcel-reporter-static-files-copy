@@ -71,6 +71,22 @@ Destination of static files can be set in plugin configuration. It will override
   }
 ```
 
+## Exporting multiple static files
+
+If you want to export multiple static files, maybe even under different locations you can use the following approach:
+
+```
+ "staticFiles": [
+    {
+      "staticPath": "node_modules/web-ui-components/dist/assets",
+      "staticOutPath": "assets"
+    },
+    {
+      "staticPath": "config"
+    }
+  ]
+```
+
 ### Additional example
 
 Check [examples](https://github.com/elwin013/parcel-reporter-static-files-copy/tree/master/examples) directory for

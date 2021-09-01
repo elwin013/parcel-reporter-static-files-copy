@@ -8,29 +8,63 @@ const PACKAGE_JSON_SECTION = "staticFiles";
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
-      let config = Object.assign({}, getSettings(options.projectRoot));
+      const configs = getSettings(options.projectRoot);
 
-      // Get all dist dir from targets, we'll copy static files into them
-      let targets = Array.from(
-        new Set(
-          event.bundleGraph
-            .getBundles()
-            .filter((b) => b.target && b.target.distDir)
-            .map((b) => b.target.distDir)
-        )
-      );
+      // in case for multiple static files
+      if (Array.isArray(configs)) {
+        console.log("is array");
 
-      let distPaths = config.distDir ? [config.distDir] : targets;
+        configs.map((config) => {
+          console.log("another one:");
+          console.log(config);
 
-      if (config.staticOutPath) {
-        distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
-      }
+          // Get all dist dir from targets, we'll copy static files into them
+          let targets = Array.from(
+            new Set(
+              event.bundleGraph
+                .getBundles()
+                .filter((b) => b.target && b.target.distDir)
+                .map((b) => b.target.distDir)
+            )
+          );
 
-      let staticPath =
-        config.staticPath || path.join(options.projectRoot, "static");
+          let distPaths = config.distDir ? [config.distDir] : targets;
 
-      for (let distPath of distPaths) {
-        copyDir(staticPath, distPath);
+          if (config.staticOutPath) {
+            distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
+          }
+
+          let staticPath = config.staticPath || path.join(options.projectRoot, "static");
+
+          for (let distPath of distPaths) {
+            copyDir(staticPath, distPath);
+          }
+        });
+      } else {
+        // for single static file / dir
+        let config = Object.assign({}, configs);
+        console.log(config);
+        // Get all dist dir from targets, we'll copy static files into them
+        let targets = Array.from(
+          new Set(
+            event.bundleGraph
+              .getBundles()
+              .filter((b) => b.target && b.target.distDir)
+              .map((b) => b.target.distDir)
+          )
+        );
+
+        let distPaths = config.distDir ? [config.distDir] : targets;
+
+        if (config.staticOutPath) {
+          distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
+        }
+
+        let staticPath = config.staticPath || path.join(options.projectRoot, "static");
+
+        for (let distPath of distPaths) {
+          copyDir(staticPath, distPath);
+        }
       }
     }
   },
@@ -83,9 +117,10 @@ const recurseSync = (dirpath, callback) => {
 };
 
 const getSettings = (projectRoot) => {
-  let packageJson = JSON.parse(
-    fs.readFileSync(path.join(projectRoot, "package.json"))
-  );
+  let packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, "package.json")));
+  // return whole array if multiple static files are present
+  if (Array.isArray(packageJson[PACKAGE_JSON_SECTION])) return packageJson[PACKAGE_JSON_SECTION];
+  // just a single static item
   return Object.assign({}, packageJson[PACKAGE_JSON_SECTION]);
 };
 
