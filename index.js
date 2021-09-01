@@ -12,12 +12,7 @@ const staticCopyPlugin = new Reporter({
 
       // in case for multiple static files
       if (Array.isArray(configs)) {
-        console.log("is array");
-
         configs.map((config) => {
-          console.log("another one:");
-          console.log(config);
-
           // Get all dist dir from targets, we'll copy static files into them
           let targets = Array.from(
             new Set(
@@ -43,7 +38,6 @@ const staticCopyPlugin = new Reporter({
       } else {
         // for single static file / dir
         let config = Object.assign({}, configs);
-        console.log(config);
         // Get all dist dir from targets, we'll copy static files into them
         let targets = Array.from(
           new Set(
