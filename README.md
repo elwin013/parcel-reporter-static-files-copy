@@ -88,7 +88,7 @@ If you want to export multiple static files, maybe even under different location
   ]
 ```
 
-5. Specify different files to export based on set node evironment
+5. Specify different files to export based on set node environment
    (for the case below you have to set NODE_ENV to production or development)
 
 ```
