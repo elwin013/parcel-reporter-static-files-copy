@@ -13,38 +13,42 @@ const staticCopyPlugin = new Reporter({
 
       // in case for multiple static files
       if (Array.isArray(configs)) {
-        configs.map((config) => {
-          if (config.env && config.env !== currentEnv) {
-            continue;
-          }
-          // Get all dist dir from targets, we'll copy static files into them
-          let targets = Array.from(
-            new Set(
-              event.bundleGraph
-                .getBundles()
-                .filter((b) => b.target && b.target.distDir)
-                .map((b) => b.target.distDir)
-            )
-          );
+        configs
+          .filter((config) => {
+            if (config.env && config.env !== currentEnv) {
+              return false;
+            }
+            return true;
+          })
+          .map((config) => {
+            // Get all dist dir from targets, we'll copy static files into them
+            let targets = Array.from(
+              new Set(
+                event.bundleGraph
+                  .getBundles()
+                  .filter((b) => b.target && b.target.distDir)
+                  .map((b) => b.target.distDir)
+              )
+            );
 
-          let distPaths = config.distDir ? [config.distDir] : targets;
+            let distPaths = config.distDir ? [config.distDir] : targets;
 
-          if (config.staticOutPath) {
-            distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
-          }
+            if (config.staticOutPath) {
+              distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
+            }
 
-          let staticPath = config.staticPath || path.join(options.projectRoot, "static");
+            let staticPath = config.staticPath || path.join(options.projectRoot, "static");
 
-          for (let distPath of distPaths) {
-            copyDir(staticPath, distPath);
-          }
-        });
+            for (let distPath of distPaths) {
+              copyDir(staticPath, distPath);
+            }
+          });
       } else {
         // for single static file / dir
-        if (config.env && config.env !== currentEnv) {
-          continue;
-        }
         let config = Object.assign({}, configs);
+        if (config.env && config.env !== currentEnv) {
+          return;
+        }
         // Get all dist dir from targets, we'll copy static files into them
         let targets = Array.from(
           new Set(
