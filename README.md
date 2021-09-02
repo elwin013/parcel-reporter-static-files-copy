@@ -91,16 +91,18 @@ If you want to export multiple static files, maybe even under different location
 5. Specify different files to export based on set node evironment
    (for the case below you have to set NODE_ENV to production or development)
 
-"staticFiles": [
-{
-"staticPath": "dev/config",
-"env": "development"
-},
-{
-"staticPath": "prod/config",
-"env": "production"
-}
-],
+```
+  "staticFiles": [
+    {
+      "staticPath": "dev/config",
+      "env": "development"
+    },
+    {
+      "staticPath": "prod/config",
+      "env": "production"
+    }
+  ],
+```
 
 ### Additional example
 
