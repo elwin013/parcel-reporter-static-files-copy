@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 const PACKAGE_JSON_SECTION = "staticFiles";
+const currentEnv = process.env.NODE_ENV;
 
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
@@ -13,6 +14,9 @@ const staticCopyPlugin = new Reporter({
       // in case for multiple static files
       if (Array.isArray(configs)) {
         configs.map((config) => {
+          if (config.env && config.env !== currentEnv) {
+            continue;
+          }
           // Get all dist dir from targets, we'll copy static files into them
           let targets = Array.from(
             new Set(
@@ -37,6 +41,9 @@ const staticCopyPlugin = new Reporter({
         });
       } else {
         // for single static file / dir
+        if (config.env && config.env !== currentEnv) {
+          continue;
+        }
         let config = Object.assign({}, configs);
         // Get all dist dir from targets, we'll copy static files into them
         let targets = Array.from(
