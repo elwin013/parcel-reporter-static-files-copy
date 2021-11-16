@@ -1,5 +1,11 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.3.1 - 16/11/2021
+
+Change dependency of parcel plugin to peer dependency.
+
+README.md update - regarding "..." from Parcel configuration.
+
 ## 1.3.0 - 25/03/2021
 
 Added correct way of handling `--dist-dir` Parcel
