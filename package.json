@@ -22,7 +22,7 @@
   "engines": {
     "parcel": "^2.0.0-beta.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@parcel/plugin": "^2.0.0-beta.1"
   },
   "devDependencies": {
