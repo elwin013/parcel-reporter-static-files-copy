@@ -26,6 +26,10 @@ npm install -D parcel-reporter-static-files-copy
 }
 ```
 
+PLEASE NOTE: `"..."` is not a placeholder - it is used to extend default list of
+plugins (reporters in this case). Please see
+[Parcel's plugins documentation](https://parceljs.org/features/plugins/#plugins) for more information.
+
 4. Run build - and that's all! Files from `static` directory will end up in `dist`!
 
 ## Customization
