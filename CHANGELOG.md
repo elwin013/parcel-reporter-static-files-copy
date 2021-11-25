@@ -1,5 +1,10 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.3.2 - 25/11/2021
+
+Use `path.join` instead of string replacement when resolving
+file destination path.
+
 ## 1.3.1 - 16/11/2021
 
 Change dependency of parcel plugin to peer dependency.
