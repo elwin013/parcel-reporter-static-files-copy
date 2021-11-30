@@ -1,5 +1,13 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.3.4 - 30/11/2021
+
+Bump - only to put forgotten Changelog into npm package ;-)
+
+## 1.3.3 - 29/11/2021
+
+Change peer dependency of parcel plugin to dependency.
+
 ## 1.3.2 - 25/11/2021
 
 Use `path.join` instead of string replacement when resolving
