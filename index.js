@@ -29,12 +29,18 @@ const staticCopyPlugin = new Reporter({
       let staticPath =
         config.staticPath || path.join(options.projectRoot, "static");
 
+      let fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
+      
       for (let distPath of distPaths) {
-        copyDir(staticPath, distPath);
+          fn(staticPath, distPath);
       }
     }
   },
 });
+
+const copyFile = (copyFrom, copyTo) => {
+  fs.copyFileSync(copyFrom, path.join(copyTo, path.basename(copyFrom)));
+};
 
 const copyDir = (copyFrom, copyTo) => {
   if (!fs.existsSync(copyTo)) {
