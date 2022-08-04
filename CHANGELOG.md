@@ -1,5 +1,9 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.4.0 - 04/08/2022
+
+Support for copying single file (not full folder) - [issue #20](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/20)
+
 ## 1.3.4 - 30/11/2021
 
 Bump - only to put forgotten Changelog into npm package ;-)
