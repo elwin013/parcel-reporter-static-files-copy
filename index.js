@@ -100,7 +100,7 @@ const getSettings = (projectRoot) => {
     fs.readFileSync(path.join(projectRoot, "package.json"))
   );
 
-  const settings = (packageJson[PACKAGE_JSON_SECTION] || []);
+  const settings = (packageJson[PACKAGE_JSON_SECTION] || [{}]);
   if (!Array.isArray(settings)) {
     throw new Error('Config option "' + PACKAGE_JSON_SECTION +  '" must be supplied as an array.');
   }
