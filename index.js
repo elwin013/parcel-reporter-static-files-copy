@@ -23,7 +23,7 @@ const staticCopyPlugin = new Reporter({
             )
           );
 
-          const distPaths = config.distDir ? [config.distDir] : targets;
+          let distPaths = config.distDir ? [config.distDir] : targets;
 
           if (config.staticOutPath) {
             distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
@@ -33,7 +33,7 @@ const staticCopyPlugin = new Reporter({
             config.staticPath || path.join(options.projectRoot, "static");
 
           const fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
-          
+
           for (const distPath of distPaths) {
               fn(staticPath, distPath);
           }
