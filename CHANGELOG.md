@@ -1,5 +1,28 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.4.0 - 04/08/2022
+
+Support for copying single file (not full folder) - [issue #20](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/20)
+
+## 1.3.4 - 30/11/2021
+
+Bump - only to put forgotten Changelog into npm package ;-)
+
+## 1.3.3 - 29/11/2021
+
+Change peer dependency of parcel plugin to dependency.
+
+## 1.3.2 - 25/11/2021
+
+Use `path.join` instead of string replacement when resolving
+file destination path.
+
+## 1.3.1 - 16/11/2021
+
+Change dependency of parcel plugin to peer dependency.
+
+README.md update - regarding "..." from Parcel configuration.
+
 ## 1.3.0 - 25/03/2021
 
 Added correct way of handling `--dist-dir` Parcel
