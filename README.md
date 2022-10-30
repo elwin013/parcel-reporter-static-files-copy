@@ -42,9 +42,11 @@ Beyond the default settings, you can:
 // package.json
   {
 	...
-  "staticFiles": {
-    "staticPath": "customStatic"
-  }
+  "staticFiles": [
+    {
+      "staticPath": "customStatic"
+    }
+  ]
 ```
 
 2. Specify directory to copy static files into
@@ -56,9 +58,11 @@ If files from `staticPath` needs to get copied into a subdirectory inside the di
 // package.json
   {
 	...
-  "staticFiles": {
-    "staticOutPath": "vendor"
-  }
+  "staticFiles": [
+    {
+      "staticOutPath": "vendor"
+    }
+  ]
 ```
 
 3. Destination of static files
@@ -70,9 +74,11 @@ Destination of static files can be set in plugin configuration. It will override
 // package.json
   {
 	...
-  "staticFiles": {
-    "distDir": "customDist"
-  }
+  "staticFiles": [
+    {
+      "distDir": "customDist"
+    }
+  ]
 ```
 
 4. Different source of static files based on output directory
@@ -105,7 +111,7 @@ If you want to export multiple static files, maybe even under different location
       "staticPath": "prod/config",
       "env": "production"
     }
-  ],
+  ]
 ```
 
 ### Additional example

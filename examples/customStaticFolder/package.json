@@ -14,7 +14,9 @@
     "parcel": "2.0.0-rc.0",
     "parcel-reporter-static-files-copy": "file:../../"
   },
-  "staticFiles": {
-    "staticPath": "customStatic"
-  }
+  "staticFiles": [
+    {
+      "staticPath": "customStatic"
+    }
+  ]
 }
