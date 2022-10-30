@@ -9,69 +9,35 @@ const currentEnv = process.env.NODE_ENV;
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
-      const configs = getSettings(options.projectRoot);
+      getSettings(options.projectRoot)
+        // Don't copy when env is specified and does not match.
+        .filter((config) => (!config.env || config.env === currentEnv))
+        .forEach((config) => {
+          // Get all dist dir from targets, we'll copy static files into them
+          const targets = Array.from(
+            new Set(
+              event.bundleGraph
+                .getBundles()
+                .filter((b) => b.target && b.target.distDir)
+                .map((b) => b.target.distDir)
+            )
+          );
 
-      // in case for multiple static files
-      if (Array.isArray(configs)) {
-        configs
-          .filter((config) => {
-            if (config.env && config.env !== currentEnv) {
-              return false;
-            }
-            return true;
-          })
-          .map((config) => {
-            // Get all dist dir from targets, we'll copy static files into them
-            let targets = Array.from(
-              new Set(
-                event.bundleGraph
-                  .getBundles()
-                  .filter((b) => b.target && b.target.distDir)
-                  .map((b) => b.target.distDir)
-              )
-            );
+          const distPaths = config.distDir ? [config.distDir] : targets;
 
-            let distPaths = config.distDir ? [config.distDir] : targets;
+          if (config.staticOutPath) {
+            distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
+          }
 
-            if (config.staticOutPath) {
-              distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
-            }
+          const staticPath =
+            config.staticPath || path.join(options.projectRoot, "static");
 
-            let staticPath = config.staticPath || path.join(options.projectRoot, "static");
-
-            for (let distPath of distPaths) {
-              copyDir(staticPath, distPath);
-            }
-          });
-      } else {
-        // for single static file / dir
-        let config = Object.assign({}, configs);
-        if (config.env && config.env !== currentEnv) {
-          return;
-        }
-        // Get all dist dir from targets, we'll copy static files into them
-        let targets = Array.from(
-          new Set(
-            event.bundleGraph
-              .getBundles()
-              .filter((b) => b.target && b.target.distDir)
-              .map((b) => b.target.distDir)
-          )
-        );
-
-        let distPaths = config.distDir ? [config.distDir] : targets;
-
-        if (config.staticOutPath) {
-          distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
-        }
-
-        let staticPath = config.staticPath || path.join(options.projectRoot, "static");
-
-      let fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
-      
-      for (let distPath of distPaths) {
-          fn(staticPath, distPath);
-      }
+          const fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
+          
+          for (const distPath of distPaths) {
+              fn(staticPath, distPath);
+          }
+        });
     }
   },
 });
@@ -126,12 +92,20 @@ const recurseSync = (dirpath, callback) => {
   recurse(dirpath);
 };
 
+/**
+ * @returns {{staticPath?: string, staticOutPath?: string, env?: string}[]}
+ */
 const getSettings = (projectRoot) => {
-  let packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, "package.json")));
-  // return whole array if multiple static files are present
-  if (Array.isArray(packageJson[PACKAGE_JSON_SECTION])) return packageJson[PACKAGE_JSON_SECTION];
-  // just a single static item
-  return Object.assign({}, packageJson[PACKAGE_JSON_SECTION]);
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(projectRoot, "package.json"))
+  );
+
+  const settings = (packageJson[PACKAGE_JSON_SECTION] || []);
+  if (!Array.isArray(settings)) {
+    throw new Error('Config option "' + PACKAGE_JSON_SECTION +  '" must be supplied as an array.');
+  }
+
+  return settings;
 };
 
 exports.default = staticCopyPlugin;
