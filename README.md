@@ -75,6 +75,42 @@ Destination of static files can be set in plugin configuration. It will override
   }
 ```
 
+4. Multiple static folders
+
+`staticFiles` entry in `package.json` can be set to the array of configurations instead of single config. 
+Thanks to that it is possible e.g. to copy files from different directories to output package.
+
+For example please see example below with environmental variables.
+
+5. Different static files / folders based on the environmental variable
+
+Different static files / folders can be copied based on the environmental variables using `env` map for config.
+There can be more than one variable to match - in that case ALL must be the same.
+If `env` map is ommited - file(s) will be always copied.
+
+Example below - when `NODE_ENV` is set to `production` then `production.txt` will be copied and if set to `development` then `development.txt`:
+
+```json
+// package.json
+  {
+	...
+  "staticFiles": [
+    {
+      "staticPath": "production.txt",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "staticPath": "development.txt",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  ]
+```
+
+
 ### Additional example
 
 Check [examples](https://github.com/elwin013/parcel-reporter-static-files-copy/tree/master/examples) directory for
