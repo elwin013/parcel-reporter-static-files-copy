@@ -23,6 +23,12 @@ const staticCopyPlugin = new Reporter({
       for (var config of configs) {
         let distPaths = config.distDir ? [config.distDir] : targets;
 
+        if (config.env) {
+          if (!doesEnvironmentVarsMatches(config.env)) {
+            continue;
+          }
+        }
+
         if (config.staticOutPath) {
           distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
         }
@@ -100,5 +106,16 @@ const getSettings = (projectRoot) => {
     return [Object.assign({}, section)];
   }
 };
+
+const doesEnvironmentVarsMatches = (envVars) => {
+  var allMatches = true;
+  for (var envVarName in envVars) {
+    if (process.env[envVarName] !== envVars[envVarName]) {
+      allMatches = false;
+      break;
+    }
+  }
+  return allMatches;
+}
 
 exports.default = staticCopyPlugin;
