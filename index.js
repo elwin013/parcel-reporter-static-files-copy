@@ -8,7 +8,7 @@ const PACKAGE_JSON_SECTION = "staticFiles";
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
-      let config = Object.assign({}, getSettings(options.projectRoot));
+      let configs = getSettings(options.projectRoot);
 
       // Get all dist dir from targets, we'll copy static files into them
       let targets = Array.from(
@@ -20,19 +20,20 @@ const staticCopyPlugin = new Reporter({
         )
       );
 
-      let distPaths = config.distDir ? [config.distDir] : targets;
+      for (var config of configs) {
+        let distPaths = config.distDir ? [config.distDir] : targets;
 
-      if (config.staticOutPath) {
-        distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
-      }
-
-      let staticPath =
-        config.staticPath || path.join(options.projectRoot, "static");
-
-      let fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
-      
-      for (let distPath of distPaths) {
-          fn(staticPath, distPath);
+        if (config.staticOutPath) {
+          distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
+        }
+  
+        let staticPath = config.staticPath || path.join(options.projectRoot, "static");
+  
+        let fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
+        
+        for (let distPath of distPaths) {
+            fn(staticPath, distPath);
+        }
       }
     }
   },
@@ -92,7 +93,12 @@ const getSettings = (projectRoot) => {
   let packageJson = JSON.parse(
     fs.readFileSync(path.join(projectRoot, "package.json"))
   );
-  return Object.assign({}, packageJson[PACKAGE_JSON_SECTION]);
+  var section = packageJson[PACKAGE_JSON_SECTION];
+  if (Array.isArray(section)) {
+    return section;
+  } else {
+    return [Object.assign({}, section)];
+  }
 };
 
 exports.default = staticCopyPlugin;
