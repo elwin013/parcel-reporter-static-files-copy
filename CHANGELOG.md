@@ -1,5 +1,10 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.5.0 - 02/01/2023
+
+* Support for multiple configurations. (refs [issue #4](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/4))
+* Support for env variables (copy files only if env variables matches). (refs [issue #4](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/4))
+
 ## 1.4.0 - 04/08/2022
 
 Support for copying single file (not full folder) - [issue #20](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/20)
