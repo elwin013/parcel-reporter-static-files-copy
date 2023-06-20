@@ -4,6 +4,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "clear": "npm run clear --ws",
     "build": "npm run build --ws"
   },
   "workspaces": [
