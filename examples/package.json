@@ -1,0 +1,16 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "build": "npm run build --ws"
+  },
+  "workspaces": [
+    "default",
+    "envFilter",
+    "singleFile",
+    "customOutInDistFolder",
+    "customStaticFolder"
+  ]
+}

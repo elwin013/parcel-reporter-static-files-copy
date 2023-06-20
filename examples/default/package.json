@@ -1,7 +1,6 @@
 {
   "name": "default",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
     "build": "parcel build src/index.html",
     "serve": "parcel src/index.html",
