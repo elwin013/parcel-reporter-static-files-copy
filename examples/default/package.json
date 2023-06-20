@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/config-default": "2.0.0-rc.0",
-    "parcel": "2.0.0-rc.0",
+    "@parcel/config-default": "2.9.2",
+    "parcel": "2.9.2",
     "parcel-reporter-static-files-copy": "file:../../"
   }
 }
