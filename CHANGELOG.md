@@ -1,5 +1,10 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.5.1/1.5.2 - 29/07/2023
+
+* Fix for workspaces package.json resolution (refs [issue #16](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/16))
+* Bump for forgotten Changelog in package (-;
+
 ## 1.5.0 - 02/01/2023
 
 * Support for multiple configurations. (refs [issue #4](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/4))
