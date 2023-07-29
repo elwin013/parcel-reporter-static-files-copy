@@ -1,6 +1,6 @@
 {
   "name": "default",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "clear": "rm -rf ./.parcel-cache dist",
     "build": "parcel build src/index.html",

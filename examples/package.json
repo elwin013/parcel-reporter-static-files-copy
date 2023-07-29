@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "author": "",
   "license": "ISC",
+  "private": "true",
   "scripts": {
-    "clear": "npm run clear --ws",
-    "build": "npm run build --ws"
+    "npm-clear": "npm run clear --ws",
+    "npm-build": "npm run build --ws",
+    "pnpm-build": "pnpm -r run build",
+    "pnpm-clear": "pnpm -r run clear"
   },
   "workspaces": [
     "default",
+    "default-no-lock",
     "envFilter",
     "singleFile",
     "customOutInDistFolder",

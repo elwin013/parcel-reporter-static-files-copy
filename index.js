@@ -8,10 +8,11 @@ const PACKAGE_JSON_SECTION = "staticFiles";
 const staticCopyPlugin = new Reporter({
   async report({ event, options }) {
     if (event.type === "buildSuccess") {
-      let configs = getSettings(options.projectRoot);
+      const projectRoot = findProjectRoot(event, options);
+      const configs = getSettings(projectRoot);
 
       // Get all dist dir from targets, we'll copy static files into them
-      let targets = Array.from(
+      const targets = Array.from(
         new Set(
           event.bundleGraph
             .getBundles()
@@ -33,7 +34,7 @@ const staticCopyPlugin = new Reporter({
           distPaths = distPaths.map((p) => path.join(p, config.staticOutPath));
         }
   
-        let staticPath = config.staticPath || path.join(options.projectRoot, "static");
+        let staticPath = config.staticPath || path.join(projectRoot, "static");
   
         let fn = fs.statSync(staticPath).isDirectory() ? copyDir : copyFile;
         
@@ -94,6 +95,16 @@ const recurseSync = (dirpath, callback) => {
 
   recurse(dirpath);
 };
+
+const findProjectRoot = (event, options) => {
+  if (options.env["npm_package_json"]) {
+    return path.dirname(options.env["npm_package_json"]);
+  }
+  if (options.env["PNPM_SCRIPT_SRC_DIR"]) {
+    return options.env["PNPM_SCRIPT_SRC_DIR"];
+  }
+  return options.projectRoot;
+}
 
 const getSettings = (projectRoot) => {
   let packageJson = JSON.parse(

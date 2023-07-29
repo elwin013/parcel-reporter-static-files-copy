@@ -1,0 +1,6 @@
+packages:
+  - customOutInDistFolder
+  - customStaticFolder
+  - default
+  - envFilter
+  - singleFile
