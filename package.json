@@ -1,6 +1,6 @@
 {
   "name": "parcel-reporter-static-files-copy",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "ParcelJS v2 plugin to copy static files from static dir to bundle directory.",
   "main": "index.js",
   "scripts": {
