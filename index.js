@@ -47,6 +47,9 @@ const staticCopyPlugin = new Reporter({
 });
 
 const copyFile = (copyFrom, copyTo) => {
+  if (!fs.existsSync(copyTo)) {
+    fs.mkdirSync(copyTo, { recursive: true });
+  }
   fs.copyFileSync(copyFrom, path.join(copyTo, path.basename(copyFrom)));
 };
 

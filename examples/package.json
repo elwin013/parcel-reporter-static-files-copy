@@ -15,6 +15,7 @@
     "default-no-lock",
     "envFilter",
     "singleFile",
+    "singleFiles",
     "customOutInDistFolder",
     "customStaticFolder"
   ]
