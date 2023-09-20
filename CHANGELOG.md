@@ -1,5 +1,9 @@
 # parcel-reporter-static-files-copy - changelog
 
+## 1.5.3 - 20/09/2023
+
+* Fixed copying single file to path specified by `staticOutPath`.
+
 ## 1.5.1/1.5.2 - 29/07/2023
 
 * Fix for workspaces package.json resolution (refs [issue #16](https://github.com/elwin013/parcel-reporter-static-files-copy/issues/16))
